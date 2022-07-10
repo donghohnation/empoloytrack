@@ -1,0 +1,1 @@
+const db = mysql.createConnection('mysql://root:chickenrecipe123@localhost:3306/employeetr_db')
