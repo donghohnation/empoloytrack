@@ -142,8 +142,6 @@ const addEmployee = () => {
         }
         db.query('INSERT INTO employees SET ?', newEmployee, err => {
           if (err) { console.log(err) }
-        // db.query('INSERT INTO employees SET ?', employee, err => {
-        //   if (err) { console.log(err) }
         })
         console.log('employee now added!')
         question()
@@ -157,11 +155,58 @@ const updateRole = () =>{
     message: 'what is the id of the employee you want to update',
     type: 'input',
     name: 'id'
-  }])
+  },
+  {
+    message: 'what is the id of the role that the employee should be updated to',
+    type: 'input',
+    name: 'role_id'
+  }
+  ])
   .then(employee =>{
-    
+    let newRole = {
+      role_id: employee.role_id
+    }
+    db.query(`UPDATE employees SET ? WHERE id = ${employee.id}`, newRole, err => {
+      if (err) { console.log(err) }
+    })
+    console.log('employee updated')
+    question()
   })
 }
+
+
+const viewDepartments = () => {
+  db.query('SELECT * FROM departments', (err, departments) => {
+    if(err) {
+      console.log(err)
+    }
+    console.table(departments)
+  })
+  question()
+}
+
+const viewRoles = () => {
+  db.query('SELECT * FROM roles', (err, roles) => {
+    if(err) {
+      console.log(err)
+    }
+    console.table(roles)
+  })
+  question()
+}
+
+const viewEmployees = () => {
+  db.query('SELECT * FROM employees', (err, employees) => {
+    if(err) {
+      console.log(err)
+    }
+    console.table(employees)
+  })
+  question()
+}
+
+
+
 
 
 question()
