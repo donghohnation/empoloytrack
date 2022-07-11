@@ -43,49 +43,34 @@ inquirer.prompt([{
 })
 }
 
-const addDepartment = () => {
-  console.log('department addition attempt!')
-  inquirer.prompt([{
-    message: 'what department are you adding',
-    type: 'input',
-    name: 'name'
-  }])
-  .then(department => {
-    console.log(department)
-    db.query('INSERT INTO departments SET ?', department, err =>{
-      if(err) {console.log(err)}
-    })
-    console.log('department now added!')
-    question()
+const viewDepartments = () => {
+  db.query('SELECT * FROM departments', (err, departments) => {
+    if(err) {
+      console.log(err)
+    }
+    console.table(departments)
   })
+  question()
 }
 
-const addRole = () => {
-  console.log('role addition attempt!')
-  inquirer.prompt([{
-    message: 'what role title are you adding',
-    type: 'input',
-    name: 'title'
-  },
-  {
-    message: 'what is the salary for the role',
-    type: 'input',
-    name: 'salary'
-  },
-  {
-    message: 'what is the department ID',
-    type: 'input',
-    name: 'department_id'
-  }
-])
-  .then(role => {
-    console.log(role)
-    db.query('INSERT INTO roles SET ?', role, err =>{
-      if(err) {console.log(err)}
-    })
-    console.log('role now added!')
-    question()
+const viewRoles = () => {
+  db.query('SELECT * FROM roles', (err, roles) => {
+    if(err) {
+      console.log(err)
+    }
+    console.table(roles)
   })
+  question()
+}
+
+const viewEmployees = () => {
+  db.query('SELECT * FROM employees', (err, employees) => {
+    if(err) {
+      console.log(err)
+    }
+    console.table(employees)
+  })
+  question()
 }
 
 const addEmployee = () => {
@@ -150,6 +135,52 @@ const addEmployee = () => {
   })
 }
 
+const addRole = () => {
+  console.log('role addition attempt!')
+  inquirer.prompt([{
+    message: 'what role title are you adding',
+    type: 'input',
+    name: 'title'
+  },
+  {
+    message: 'what is the salary for the role',
+    type: 'input',
+    name: 'salary'
+  },
+  {
+    message: 'what is the department ID',
+    type: 'input',
+    name: 'department_id'
+  }
+])
+  .then(role => {
+    console.log(role)
+    db.query('INSERT INTO roles SET ?', role, err =>{
+      if(err) {console.log(err)}
+    })
+    console.log('role now added!')
+    question()
+  })
+}
+
+const addDepartment = () => {
+  console.log('department addition attempt!')
+  inquirer.prompt([{
+    message: 'what department are you adding',
+    type: 'input',
+    name: 'name'
+  }])
+  .then(department => {
+    console.log(department)
+    db.query('INSERT INTO departments SET ?', department, err =>{
+      if(err) {console.log(err)}
+    })
+    console.log('department now added!')
+    question()
+  })
+}
+
+
 const updateRole = () =>{
   inquirer.prompt([{
     message: 'what is the id of the employee you want to update',
@@ -174,36 +205,6 @@ const updateRole = () =>{
   })
 }
 
-
-const viewDepartments = () => {
-  db.query('SELECT * FROM departments', (err, departments) => {
-    if(err) {
-      console.log(err)
-    }
-    console.table(departments)
-  })
-  question()
-}
-
-const viewRoles = () => {
-  db.query('SELECT * FROM roles', (err, roles) => {
-    if(err) {
-      console.log(err)
-    }
-    console.table(roles)
-  })
-  question()
-}
-
-const viewEmployees = () => {
-  db.query('SELECT * FROM employees', (err, employees) => {
-    if(err) {
-      console.log(err)
-    }
-    console.table(employees)
-  })
-  question()
-}
 
 
 
